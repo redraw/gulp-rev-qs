@@ -8,11 +8,9 @@ var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var map = require('event-stream').map;
 
-
-var PLUGIN_NAME = 'gulp-rev-qs';
-
-var R_FIND = /(?:href=|src=|url\()['|"]([^\s>"']+?)\?rev=([^\s>"']+?)['|"]/gi;
-var PFX = '?rev=';
+const PLUGIN_NAME = 'gulp-rev-qs';
+const R_FIND = /(?:href=|src=|url\()['|"]([^\s>"']+?)\?rev=([^\s>"']+?)['|"]/gi;
+const PFX = '?rev=';
 
 module.exports = function revPlugin(options) {
   
@@ -24,7 +22,7 @@ module.exports = function revPlugin(options) {
     options = {};
   }
 
-  return map(function (file, cb) {
+  return map((file, cb) => {
     
     if (file.isNull()) {
       return cb(null, file);
@@ -38,7 +36,7 @@ module.exports = function revPlugin(options) {
     var depPath;
     var depCRC;
 
-    contents = contents.replace(R_FIND, function (match, assetPath, rev) {
+    contents = contents.replace(R_FIND, (match, assetPath, rev) => {
       assetPath = path.normalize(assetPath);
       if (assetPath.indexOf(path.sep) === 0) {
         depPath = path.join(options.base || file.base, assetPath);
