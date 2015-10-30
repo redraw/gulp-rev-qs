@@ -1,4 +1,4 @@
-#gulp-rev-qs
+#gulp-rev-qs [![Build][travis-image]][travis-url]
 The [gulp](http://gulpjs.com/) plugin for cache-busting files using query string.
 
 e.g. ```<script src="/js/awesome.js?rev=3457654245"></script>```
@@ -33,4 +33,7 @@ npm test
 ```
 ##License
 gulp-rev-qs is licensed under the MIT License.
+
+[travis-url]: https://travis-ci.org/quex46/gulp-rev-qs
+[travis-image]: https://travis-ci.org/quex46/gulp-rev-qs.svg?branch=master
 
