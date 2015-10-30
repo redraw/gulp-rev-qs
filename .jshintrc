@@ -1,0 +1,17 @@
+{
+  "asi": true,  
+  "boss": true,
+  "browser": true,  
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "esnext": true,
+  "evil": true, 
+  "latedef": "nofunc",
+  "noarg": true,
+  "node": true,
+  "nonbsp": true,
+  "notypeof": true,
+  "noyield": true,
+  "unused": true
+}

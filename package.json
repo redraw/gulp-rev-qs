@@ -1,0 +1,36 @@
+{
+  "name": "gulp-rev-qs",
+  "version": "1.0.0",
+  "description": "Assets cache-busting plugin for gulp.",
+  "main": "index.js",
+  "dependencies": {
+    "buffer-crc32": "*",
+    "event-stream": "*",
+    "gulp-util": "*"
+  },
+  "devDependencies": {
+    "del": "*",
+    "gulp": "*",
+    "mocha": "*"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quex46/gulp-rev-qs.git"
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "gulp-rev-qs",
+    "cache",
+    "revision"
+  ],
+  "author": "Artem Bronitsky <https://github.com/quex46>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/quex46/gulp-rev-qs/issues"
+  },
+  "homepage": "https://github.com/quex46/gulp-rev-qs#readme"
+}
