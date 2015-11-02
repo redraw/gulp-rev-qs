@@ -9,7 +9,7 @@ var PluginError = gutil.PluginError;
 var map = require('event-stream').map;
 
 const PLUGIN_NAME = 'gulp-rev-qs';
-const R_FIND = /(?:href=|src=|url\()['|"]([^\s>"']+?)\?rev=([^\s>"']+?)['|"]/gi;
+const R_FIND = /(?:href=|src=|url\()['|"]?([^\s>"']+?)\?rev=([^\s>"']+?)['|"]?/gi;
 const PFX = '?rev=';
 
 module.exports = function revPlugin(options) {

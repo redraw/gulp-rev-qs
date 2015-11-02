@@ -11,7 +11,7 @@ describe('gulp-rev-qs', () => {
   var page;
 
   var countMatches = re => {
-    var cnt = 0;  
+    var cnt = 0;
     while (re.exec(page)) {
       cnt++;
     }
@@ -33,7 +33,7 @@ describe('gulp-rev-qs', () => {
   after(() => del.sync(dest));
 
   it('update all assets with revision query', () => {
-    assert.equal(8, countMatches(/\?rev=[0-9]{6,}/g));
+    assert.equal(9, countMatches(/\?rev=[0-9]{6,}/g));
   });
 
   it('skip assets with no revision query', () => {
@@ -41,7 +41,7 @@ describe('gulp-rev-qs', () => {
   });
 
   it('missed assets revision is set to 0', () => {
-    assert.equal(1, countMatches(/\/missed\.css\?rev=0"/g));
+    assert.equal(1, countMatches(/\/missed\.css\?rev=0/g));
   });
 
 });
