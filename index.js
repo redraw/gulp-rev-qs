@@ -9,7 +9,7 @@ var PluginError = gutil.PluginError;
 var map = require('event-stream').map;
 
 const PLUGIN_NAME = 'gulp-rev-qs';
-const R_FIND = /(?:href=|src=|url\()['|"]?([^\s>"']+?)\?rev=([^\s>"']+?)['|"]?/gi;
+const R_FIND = /(?:href=|src=|url\()['|"]?([^\s>"']+?)\?rev=([^\s>"')]*)['|"]?/gi;
 const PFX = '?rev=';
 
 module.exports = function revPlugin(options) {
@@ -21,6 +21,8 @@ module.exports = function revPlugin(options) {
   } else if (!options) {
     options = {};
   }
+
+  var manifest = {};
 
   return map((file, cb) => {
     
@@ -45,9 +47,12 @@ module.exports = function revPlugin(options) {
       }
 
       try {
-        depCRC = crc32.unsigned(fs.readFileSync(depPath));
+        if (!manifest[depPath]) {
+          manifest[depPath] = crc32.unsigned(fs.readFileSync(depPath));
+        }
+        depCRC = manifest[depPath];
       } catch (e) {
-        depCRC = '0';
+        depCRC = manifest[depPath] = '0';
       }
 
       return match.replace(PFX + rev, PFX + depCRC);
