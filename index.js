@@ -39,6 +39,9 @@ module.exports = function revPlugin(options) {
     var depCRC;
 
     contents = contents.replace(R_FIND, (match, assetPath, rev) => {
+      if (typeof options.resolver === 'function') {
+        assetPath = options.resolver(assetPath);
+      }
       assetPath = path.normalize(assetPath);
       if (assetPath.indexOf(path.sep) === 0) {
         depPath = path.join(options.base || file.base, assetPath);

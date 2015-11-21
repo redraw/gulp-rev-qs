@@ -17,14 +17,19 @@ describe('gulp-rev-qs', () => {
     }
     re.lastIndex = 0;
     return cnt;
-  } 
+  }
 
   before(function (callback) {
     gulp.src('test/fixtures/page.html')
-      .pipe(rev())
+      .pipe(rev({
+        resolver: function (path) {
+          path = path.replace('{{STATIC_URL}}', '/');
+          return path;
+        }
+      }))
       .pipe(gulp.dest(dest))
       .on('end', () => {
-        page = fs.readFileSync(resolve(dest, 'page.html'), 'utf8');
+        page = fs.readFileSync(resolve(dest, 'page.html'), 'utf-8');
         callback();
       })
       .on('error', callback);
@@ -33,7 +38,7 @@ describe('gulp-rev-qs', () => {
   after(() => del.sync(dest));
 
   it('update all assets with revision query', () => {
-    assert.equal(9, countMatches(/\?rev=[0-9]{6,}/g));
+    assert.equal(10, countMatches(/\?rev=[0-9]{6,}/g));
   });
 
   it('skip assets with no revision query', () => {
