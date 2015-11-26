@@ -9,11 +9,11 @@ var PluginError = gutil.PluginError;
 var map = require('event-stream').map;
 
 var PLUGIN_NAME = 'gulp-rev-qs';
-var R_FIND = /(?:href=|src=|url\()['|"]?([^\s>"']+?)\?rev=([^\s>"')]*)['|"]?/gi;
+var R_FIND = /(?:href=|src=|url\()['|"]?([^>"']+?)\?rev=([^\s>"')]*)['|"]?/gi;
 var PFX = '?rev=';
 
 module.exports = function revPlugin(options) {
-  
+
   if (typeof options === 'string') {
     options = {
       base: options
@@ -25,7 +25,7 @@ module.exports = function revPlugin(options) {
   var manifest = {};
 
   return map(function (file, cb) {
-    
+
     if (file.isNull()) {
       return cb(null, file);
     }
@@ -38,7 +38,10 @@ module.exports = function revPlugin(options) {
     var depPath;
     var depCRC;
 
-    contents = contents.replace(R_FIND, function (match, assetPath, rev) {
+    var regex = options.regex || R_FIND
+    var prefix = options.prefix || PFX
+
+    contents = contents.replace(regex, function (match, assetPath, rev) {
       if (typeof options.resolver === 'function') {
         assetPath = options.resolver(assetPath);
       }
@@ -58,11 +61,11 @@ module.exports = function revPlugin(options) {
         depCRC = manifest[depPath] = '0';
       }
 
-      return match.replace(PFX + rev, PFX + depCRC);
+      return match.replace(prefix + rev, prefix + depCRC);
     });
 
     file.contents = new Buffer(contents);
-    R_FIND.lastIndex = 0;
+    regex.lastIndex = 0;
 
     cb(null, file);
   });
