@@ -5,12 +5,12 @@ var fs = require('fs');
 var rev = require('../index.js');
 var del = require('del');
 
-describe('gulp-rev-qs', () => {
+describe('gulp-rev-qs', function () {
 
   var dest = 'test/fixtures/build';
   var page;
 
-  var countMatches = re => {
+  var countMatches = function (re) {
     var cnt = 0;
     while (re.exec(page)) {
       cnt++;
@@ -28,24 +28,26 @@ describe('gulp-rev-qs', () => {
         }
       }))
       .pipe(gulp.dest(dest))
-      .on('end', () => {
+      .on('end', function () {
         page = fs.readFileSync(resolve(dest, 'page.html'), 'utf-8');
         callback();
       })
       .on('error', callback);
   });
 
-  after(() => del.sync(dest));
+  after(function () {
+    del.sync(dest);
+  });
 
-  it('update all assets with revision query', () => {
+  it('update all assets with revision query', function () {
     assert.equal(10, countMatches(/\?rev=[0-9]{6,}/g));
   });
 
-  it('skip assets with no revision query', () => {
+  it('skip assets with no revision query', function () {
     assert.equal(1, countMatches(/\/norev\.css"/g));
   });
 
-  it('missed assets revision is set to 0', () => {
+  it('missed assets revision is set to 0', function () {
     assert.equal(1, countMatches(/\/missed\.css\?rev=0/g));
   });
 

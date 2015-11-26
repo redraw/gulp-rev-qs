@@ -24,7 +24,7 @@ module.exports = function revPlugin(options) {
 
   var manifest = {};
 
-  return map((file, cb) => {
+  return map(function (file, cb) {
     
     if (file.isNull()) {
       return cb(null, file);
@@ -38,7 +38,7 @@ module.exports = function revPlugin(options) {
     var depPath;
     var depCRC;
 
-    contents = contents.replace(R_FIND, (match, assetPath, rev) => {
+    contents = contents.replace(R_FIND, function (match, assetPath, rev) {
       if (typeof options.resolver === 'function') {
         assetPath = options.resolver(assetPath);
       }
