@@ -27,6 +27,12 @@ gulp.task('rev', function () {
 ```
 $ gulp rev
 ```
+## Options (*String*|*Object*)
+**options.base** *String* - assets basepath
+
+**options.resolver** *Function* - use this param if you would dinamically resolve asset filepath. See example [here](https://github.com/quex46/gulp-rev-qs/issues/1)
+
+``rev('./assets')`` is identical to ``rev({base: './assets'})``
 ##Running tests
 ```
 npm test
